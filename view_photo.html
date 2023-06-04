@@ -138,50 +138,26 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" id="place_for_image">
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Submissions</h1>
 
-                    <div class="list-group" id="current_submissions">
-                        
-                    </div>
+                    
 
 
                     <script>
-                        function loadFile(filePath){
-                            var result = null;
-                            var xmlhttp = new XMLHttpRequest();
-                            xmlhttp.open("GET", filePath, false);
-                            xmlhttp.send();
-                            result  =xmlhttp.responseText;
-                            return result;
-                            
-                        }
-                        const buttonsContainer = document.getElementById('current_submissions');
-                        var WTF = loadFile("database/data.csv");
-                        var data =  $.csv.toArrays(WTF);
-                        var name;
-                        for(var i = 0; i < data.length; i++) {
-                            name = "";
-                            var aaa = data[i];
-                            for(var j = 0; j < 2; j++) {
-                                name = name + data[i][j] + " ";
-    }
-                            // Create a button element
-                            const button = document.createElement('a');
-                              button.textContent = name;
-                              button.classList.add('list-group-item');
-                              button.classList.add('list-group-item-action');
-                              button.href = "completed_assignments_name.html?name=" + name;
-                              
-                
-                              // Append the button to the buttons container
-                              buttonsContainer.appendChild(button);
-}
-                            
+                        const queryString = window.location.search;
+                        const urlParams = new URLSearchParams(queryString);
+                        const imageContainer = document.getElementById('place_for_image');
+                        const image = localStorage.getItem(urlParams.get('key'));
+                        var imagePreview = document.createElement('img');
+                        imagePreview.src = image;
+                        imageContainer.appendChild(imagePreview);
+                        imagePreview.style.display = "block"; 
                     </script>
-                    
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='teacher_verify_assignments.html';">Reject</button>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='teacher_verify_assignments.html';">Accept</button>
 
 
                 </div>

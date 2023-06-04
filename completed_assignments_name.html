@@ -149,36 +149,21 @@
 
 
                     <script>
-                        function loadFile(filePath){
-                            var result = null;
-                            var xmlhttp = new XMLHttpRequest();
-                            xmlhttp.open("GET", filePath, false);
-                            xmlhttp.send();
-                            result  =xmlhttp.responseText;
-                            return result;
-                            
-                        }
                         const buttonsContainer = document.getElementById('current_submissions');
-                        var WTF = loadFile("database/data.csv");
-                        var data =  $.csv.toArrays(WTF);
-                        var name;
-                        for(var i = 0; i < data.length; i++) {
-                            name = "";
-                            var aaa = data[i];
-                            for(var j = 0; j < 2; j++) {
-                                name = name + data[i][j] + " ";
-    }
-                            // Create a button element
+                        for (var i =0; i <localStorage.length; i++){
+                            if (localStorage.key(i).lastIndexOf("Robert Ren") === 0){
                             const button = document.createElement('a');
-                              button.textContent = name;
+                              button.textContent = localStorage.key(i);
                               button.classList.add('list-group-item');
                               button.classList.add('list-group-item-action');
-                              button.href = "completed_assignments_name.html?name=" + name;
+                              button.href = "view_photo.html?key=" + localStorage.key(i);
                               
                 
                               // Append the button to the buttons container
                               buttonsContainer.appendChild(button);
-}
+                            }
+                        }
+
                             
                     </script>
                     
