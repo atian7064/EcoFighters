@@ -10,7 +10,7 @@
     <meta name="author" content="">
     
 
-    <title>Assign Challenges</title>
+    <title>Your Students</title>
 
     <!-- Custom fonts for this template-->
     <link href="fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +44,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="add_assignments.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="list_of_students.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     
                 </div>
@@ -141,54 +141,35 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Students</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Submissions</h1>
 
-                    <form class="needs-validation" action="/handle.html" method="GET" novalidate>
-                        <div class="form-group">
-                          <label for="assignment_title">Assignment Title</label>
-                          <input type="text" class="form-control" id="validationCustom01" name="title" placeholder="(e.g Clean up litter)" required>
-                          <div class="invalid-feedback">
-                            Please enter a title.
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="set_points">Points</label>
-                          <input type="text" class="form-control" id="validationCustom01" name="points" placeholder="(e.g 5)" required>
-                          <div class="invalid-feedback">
-                            Please enter a integer.
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="set_description">Description</label>
-                          <textarea class="form-control" id="set_description" rows="3" name="description" required></textarea>
-                          <div class="invalid-feedback">
-                            Please enter a description.
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Assign</button>
-                      </form>
+                    <div class="list-group" id="current_submissions">
+                        
+                    </div>
 
-                      <script>
-                        // Example starter JavaScript for disabling form submissions if there are invalid fields
-                        (function() {
-                          'use strict';
-                          window.addEventListener('load', function() {
-                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                            var forms = document.getElementsByClassName('needs-validation');
-                            // Loop over them and prevent submission
-                            var validation = Array.prototype.filter.call(forms, function(form) {
-                              form.addEventListener('submit', function(event) {
-                                if (form.checkValidity() === false) {
-                                  event.preventDefault();
-                                  event.stopPropagation();
-                                }
-                                form.classList.add('was-validated');
-                              }, false);
-                            });
-                          }, false);
-                        })();
-                        </script>
-  
+
+                    <script>
+                        function loadFile(filePath){
+                            var result = null;
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.open("GET", filePath, false);
+                            xmlhttp.send();
+                            result  =xmlhttp.responseText;
+                            return result;
+                            
+                        }
+                        var name = "";
+                        var WTF = loadFile("database/data.csv");
+                        var data =  $.csv.toArrays(WTF);
+                        for(var i = 0; i < data.length; i++) {
+                            var aaa = data[i];
+                            for(var j = 0; j < 2; j++) {
+                                name = name + data[i][j];
+    }
+}
+                    </script>
+                    
+
 
                 </div>
                 <!-- /.container-fluid -->

@@ -10,7 +10,7 @@
     <meta name="author" content="">
     
 
-    <title>Assign Challenges</title>
+    <title>SB Admin 2 - Blank</title>
 
     <!-- Custom fonts for this template-->
     <link href="fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,11 +44,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="add_assignments.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     
                 </div>
-                <div class="sidebar-brand-text mx-3">Teacher Panel</div>
+                <div class="sidebar-brand-text mx-3">SB Admin<sup>2</sup></div>
             </a>
 
             <!-- Divider -->
@@ -58,20 +58,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="list_of_students.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Manage Students</span></a>
+                    <span>Submit Challenges</span></a>
             </li>
 
 
             <li class="nav-item">
                 <a class="nav-link" href="add_assignments.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Assign Challenges</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="teacher_verify_assignments.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>View Submissions</span></a>
+                    <span>Leaderboards</span></a>
             </li>
 
            
@@ -125,6 +119,15 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -141,53 +144,40 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Students</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Submit Challenges</h1>
 
-                    <form class="needs-validation" action="/handle.html" method="GET" novalidate>
-                        <div class="form-group">
-                          <label for="assignment_title">Assignment Title</label>
-                          <input type="text" class="form-control" id="validationCustom01" name="title" placeholder="(e.g Clean up litter)" required>
-                          <div class="invalid-feedback">
-                            Please enter a title.
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="set_points">Points</label>
-                          <input type="text" class="form-control" id="validationCustom01" name="points" placeholder="(e.g 5)" required>
-                          <div class="invalid-feedback">
-                            Please enter a integer.
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="set_description">Description</label>
-                          <textarea class="form-control" id="set_description" rows="3" name="description" required></textarea>
-                          <div class="invalid-feedback">
-                            Please enter a description.
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Assign</button>
-                      </form>
 
-                      <script>
-                        // Example starter JavaScript for disabling form submissions if there are invalid fields
-                        (function() {
-                          'use strict';
-                          window.addEventListener('load', function() {
-                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                            var forms = document.getElementsByClassName('needs-validation');
-                            // Loop over them and prevent submission
-                            var validation = Array.prototype.filter.call(forms, function(form) {
-                              form.addEventListener('submit', function(event) {
-                                if (form.checkValidity() === false) {
-                                  event.preventDefault();
-                                  event.stopPropagation();
-                                }
-                                form.classList.add('was-validated');
-                              }, false);
-                            });
-                          }, false);
-                        })();
-                        </script>
+                    <div class="list-group" id="assignments_to_do">
+                        
+                      </div>
+
+
+                    <script>
+    
+                        fetch("../database/assignments.json")
+                            .then(results=>results.json())
+                            .then(data => {
+                              const buttonsContainer = document.getElementById('assignments_to_do');
+                
+                              // Loop through the items in the JSON file
+                              data.forEach(item => {
+                              
+                              // Create a button element
+                              const button = document.createElement('a');
+                              button.textContent = item.Title + " (Points: " + item.Points + ")";
+                              button.classList.add('list-group-item');
+                              button.classList.add('list-group-item-action');
+                              button.href = "submissionpage.html?title=" + item.Title;
+                              
+                
+                              // Append the button to the buttons container
+                              buttonsContainer.appendChild(button);
+                    
+                        });
+                      });
+                    </script>
+
+                
   
 
                 </div>
@@ -231,7 +221,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="index.html">Logout</a>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
