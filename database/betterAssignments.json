@@ -1,0 +1,22 @@
+[
+    {
+        "Title": "Responsible Recycling",
+        "Description": "Recycle 3 items correctly.",
+        "Points": 5
+    },
+    {
+        "Title": "Reusable Items",
+        "Description": "Bring a reusable water bottle or lunch box to school.",
+        "Points": 5
+    },
+    {
+        "Title": "Picking Up Trash",
+        "Description": "Pick up trash around the school.",
+        "Points": 5
+    },
+    {
+        "Title": "Plant a Tree",
+        "Description": "Plant a tree in the school garden or outside your home.",
+        "Points": 15
+    }
+]

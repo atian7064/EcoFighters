@@ -10,7 +10,7 @@
     <meta name="author" content="">
     
 
-    <title>Sumbit Challenges</title>
+    <title>Leaderboards</title>
 
     <!-- Custom fonts for this template-->
     <link href="fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,11 +44,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="view_assignments.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="leaderboard.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     
                 </div>
-                <div class="sidebar-brand-text mx-3">Student Panel</div>
+                <div class="sidebar-brand-text mx-3">Student panel</div>
             </a>
 
             <!-- Divider -->
@@ -119,7 +119,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-            
+
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -136,43 +136,58 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Submit Challenges</h1>
-                    
+                    <h1 class="h3 mb-4 text-gray-800">Students</h1>
 
 
-                    <div class="list-group" id="assignments_to_do">
-                        
-                      </div>
-
-
-                      <script>
-    
-                        fetch("/database/betterAssignments.json")
-                            .then(results=>results.json())
-                            .then(data => {
-                              const buttonsContainer = document.getElementById('assignments_to_do');
-                              const descriptionContainer = document.getElementById('descripting')
-                
-                              // Loop through the items in the JSON file
-                              data.forEach(item => {
-                              
-                              // Create a button element
-                              const button = document.createElement('a');
-                              button.textContent = item.Title + " (Points: " + item.Points + ")";
-                              button.classList.add('list-group-item');
-                              button.classList.add('list-group-item-action');
-                              button.href = "submissionpage.html?title=" + item.Title + "&description=" + item.Description;
-                              
-                
-                              // Append the button to the buttons container
-                              buttonsContainer.appendChild(button);
-                    
-                        });
-                      });
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="student_table">
+                            <thead>
+                                <tr>
+                                  <th scope="col">First</th>
+                                  <th scope="col">Last</th>
+                                  <th scope="col">Grade</th>
+                                  <th scope="col">Points</th>
+                                </tr>
+                              </thead>
+                        </table>
+                    </div>
+                    <script>
+                        function loadFile(filePath){
+                            var result = null;
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.open("GET", filePath, false);
+                            xmlhttp.send();
+                            result  =xmlhttp.responseText;
+                            return result;
+                            
+                        }
+                        function bubbleSort(arr) {
+  
+                            for (var i = 0; i < arr.length; i++) {
+                                for (var j = 0; j < (arr.length - i - 1); j++) {
+                                    if (arr[j][3] > arr[j + 1][3]) {
+                                        var temp = arr[j]
+                                        arr[j] = arr[j + 1]
+                                        arr[j + 1] = temp
+                                    }
+                                }
+                            }
+                            return arr    
+                        }
+                        var table = document.getElementById("student_table");
+                        var csvFile = loadFile("database/data.csv");
+                        var data =  $.csv.toArrays(csvFile);
+                        console.log(data[0][1]);
+                        data = bubbleSort(data).reverse();
+                        for(var i = 0; i < data.length; i++) {
+                            var row = table.insertRow(i+1);
+                            var aaa = data[i];
+                            for(var j = 0; j < aaa.length; j++) {
+                                row.insertCell(j).innerHTML = data[i][j];
+                            } 
+                        }
                     </script>
 
-                
-  
 
                 </div>
                 <!-- /.container-fluid -->
@@ -215,7 +230,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="index.html">Logout</a>
                 </div>
             </div>
         </div>
